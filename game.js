@@ -105,6 +105,11 @@ var VERTICAL_DISPLACEMENT = 1;              // The displacement of vertical spee
 
 var GAME_INTERVAL = 25;                     // The time interval of running the game
 
+var BULLET_SIZE = new Size(10, 10); // The size of a bullet
+var BULLET_SPEED = 10.0;            // The speed of a bullet
+                                    //  = pixels it moves each game loop
+var SHOOT_INTERVAL = 200.0;         // The period when shooting is disabled
+
 
 //
 // Variables in the game
@@ -115,6 +120,8 @@ var svgdoc = null;                          // SVG root document node
 var player = null;                          // The player object
 var gameInterval = null;                    // The interval
 var zoom = 1.0;                             // The zoom level of the screen
+
+var canShoot = true;                		// A flag indicating whether the player can shoot a bullet
 
 
 //
