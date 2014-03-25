@@ -28,20 +28,20 @@ function shootBullet() {
 	// Disable shooting for a short period of time
 	canShoot = false;
 	var timer = setTimeout("canShoot = true", SHOOT_INTERVAL);
-	
+
 	// Create the bullet by createing a use node
 	var bullet = svgdoc.createElementNS("http://www.w3.org/2000/svg", "use");
 	svgdoc.getElementById("bullets").appendChild(bullet);
-	
+
     // Calculate and set the position of the bullet
 	bullet.setAttribute("x", (player.position.x + (PLAYER_SIZE.w / 2)));
 	bullet.setAttribute("y", (player.position.y + (PLAYER_SIZE.h / 2)));
-	
+
     // Set the href of the use node to the bullet defined in the defs node
 	bullet.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", "#bullet");
 
     // Append the bullet to the bullet group
-	
+
 
 }
 
@@ -49,13 +49,47 @@ function moveBullets() {
 	var bullets = svgdoc.getElementById("bullets");
     for (var i = 0; i < bullets.childNodes.length; i++) {
         var node = bullets.childNodes.item(i);
-		var x = node.getAttribute("x");
+		var x = parseInt(node.getAttribute("x"));
         // Update the position of the bullet
-		node.setAttribute("x", ++x);
+		node.setAttribute("x", x + BULLET_SPEED);
 
         // If the bullet is not inside the screen delete it from the group
         if (x > SCREEN_SIZE.w) {
 	        svgdoc.getElementById("bullets").removeChild(node);
+        }
+
+    }
+}
+
+function collisionDetection() {
+    // Check whether the player collides with a monster
+    var monsters = svgdoc.getElementById("monsters");
+    for (var i = 0; i < monsters.childNodes.length; i++) {
+        var monster = monsters.childNodes.item(i);
+        // For each monster check if it overlaps with the player
+        // if yes, stop the game
+        var monsterPos = new Point(monster.getAttribute("x"), monster.getAttribute("y"));
+        if (intersect(monsterPos, MONSTER_SIZE, player.position, PLAYER_SIZE)) {
+        	alert("You are killed!");
+	        clearInterval(gameInterval);
+        }
+    }
+
+    // Check whether a bullet hits a monster
+    var bullets = svgdoc.getElementById("bullets");
+    for (var i = 0; i < bullets.childNodes.length; i++) {
+        var bullet = bullets.childNodes.item(i);
+
+        // For each bullet check if it overlaps with any monster
+        // if yes, remove both the monster and the bullet		
+	    for (var i = 0; i < monsters.childNodes.length; i++) {
+	        var monster = monsters.childNodes.item(i);
+	        var monsterPos = new Point(monster.getAttribute("x"), monster.getAttribute("y"));
+	        var bulletPos = new Point(bullet.getAttribute("x"), bullet.getAttribute("y"));
+	        if (intersect(monsterPos, MONSTER_SIZE, bulletPos, BULLET_SIZE)) {
+	        	bullets.removeChild(bullet);
+	        	monsters.removeChild(monster);
+			}
         }
 
     }
@@ -218,7 +252,7 @@ function keydown(evt) {
         case "M".charCodeAt(0):
             player.motion = motionType.RIGHT;
             break;
-			
+
 
         // Add your code here
         case "Z".charCodeAt(0):
@@ -226,13 +260,13 @@ function keydown(evt) {
 	        	player.verticalSpeed = JUMP_SPEED;
         	}
         	break;
-        	
+
     	case 32: // space bar
 			if (canShoot == true) {
     			shootBullet();
     		}
 			break;
-        
+
 
     }
 }
@@ -263,7 +297,7 @@ function keyup(evt) {
 function gamePlay() {
     // Check whether the player is on a platform
     var isOnPlatform = player.isOnPlatform();
-    
+
     // Update player position
     var displacement = new Point();
 
@@ -311,32 +345,32 @@ function gamePlay() {
 function updateScreen() {
     // Transform the player
     player.node.setAttribute("transform", "translate(" + player.position.x + "," + player.position.y + ")");
-            
-    // Calculate the scaling and translation factors	
+
+    // Calculate the scaling and translation factors
     // Add your code here
     var scale = new Point(zoom, zoom);
     var translate = new Point();
-    
+
     translate.x = SCREEN_SIZE.w / 2.0 - (player.position.x - PLAYER_SIZE.w / 2) * scale.x;
     if (translate.x > 0) {
 	    translate.x = 0;
     } else if (translate.x < SCREEN_SIZE.w - SCREEN_SIZE.w * scale.x) {
 	    translate.x = SCREEN_SIZE.w - SCREEN_SIZE.w * scale.x;
     }
-    
+
     translate.y = SCREEN_SIZE.h / 2.0 - (player.position.y - PLAYER_SIZE.h / 2) * scale.y;
     if (translate.y > 0) {
 	    translate.y = 0;
     } else if (translate.y < SCREEN_SIZE.h - SCREEN_SIZE.h * scale.y) {
 	    translate.y = SCREEN_SIZE.h - SCREEN_SIZE.h * scale.y;
     }
-    
-    
-    
+
+
+
     svgdoc.getElementById("gamearea").setAttribute("transform", "translate(" + translate.x + ", " + translate.y + ") scale(" + scale.x + "," + scale.y + ")");
-    
+
     moveBullets();
-    
+	collisionDetection();
 }
 
 function setZoom() {
