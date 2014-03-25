@@ -15,6 +15,13 @@ function intersect(pos1, size1, pos2, size2) {
             pos1.y < pos2.y + size2.h && pos1.y + size1.h > pos2.y);
 }
 
+function createMonster(x, y) {
+	var monster = svgdoc.createElementNS("http://www.w3.org/2000/svg", "use");
+	svgdoc.getElementById("monsters").appendChild(monster);
+	monster.setAttribute("x", x);
+	monster.setAttribute("y", y);
+	monster.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", "#monster");
+}
 
 // The player class used in this program
 function Player() {
@@ -126,6 +133,9 @@ function load(evt) {
 
     // Create the player
     player = new Player();
+
+	createMonster(100, 200);
+	createMonster(200, 200);
 
     // Start the game interval
     gameInterval = setInterval("gamePlay()", GAME_INTERVAL);

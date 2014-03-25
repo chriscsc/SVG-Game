@@ -19,6 +19,18 @@
       <stop offset="0.8" style="stop-color:yellow;stop-opacity:1"/>
       <stop offset="1.0" style="stop-color:orange;stop-opacity:1"/>
     </radialGradient>
+    
+    <g id="monster">
+		<path d="M0,30 q0,-30 20,-30 t20,30 l0,10 l-5,-7 l-5,7 l-5,-7 l-5,7 l-5,-7 l-5,7 l-5,-7 l-5,7 l0,-10" 
+			style="fill:gray;fill-opacity:0.5;stroke:black;stroke-width:2"/>
+		<circle cx="12" cy="20" r="5" style="fill:yellow;stroke:black;stroke-width:2">
+			<animateColor attributeName="fill" values="yellow;red;yellow"
+	          dur="1s" repeatCount="indefinite"/>
+		</circle>
+		<circle cx="28" cy="20" r="5" style="fill:yellow;stroke:black;stroke-width:2">
+			<animateColor attributeName="fill" values="yellow;red;yellow" dur="1s" repeatCount="indefinite"/>
+		</circle>
+	</g>
   </defs>
 
   <rect width="100%" height="100%" style="fill:url(#background_pattern);stroke:orange;stroke-width:4" />
@@ -89,17 +101,7 @@
           <path d="M10,25 l20,0 q0,8 -10,8 t-10,-8" style="fill:orange;stroke:black;stroke-black:2"/>
         </g>
         
-        <g id="monster">
-			<path d="M0,30 q0,-30 20,-30 t20,30 l0,10 l-5,-7 l-5,7 l-5,-7 l-5,7 l-5,-7 l-5,7 l-5,-7 l-5,7 l0,-10" 
-				style="fill:gray;fill-opacity:0.5;stroke:black;stroke-width:2"/>
-			<circle cx="12" cy="20" r="5" style="fill:yellow;stroke:black;stroke-width:2">
-				<animateColor attributeName="fill" values="yellow;red;yellow"
-                  dur="1s" repeatCount="indefinite"/>
-			</circle>
-			<circle cx="28" cy="20" r="5" style="fill:yellow;stroke:black;stroke-width:2">
-				<animateColor attributeName="fill" values="yellow;red;yellow" dur="1s" repeatCount="indefinite"/>
-			</circle>
-		</g>
+	    <g id="monsters"/>
         
       </g>
     </g>
