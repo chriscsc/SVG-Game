@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="800px" height="600px"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:xhtml="http://www.w3.org/1999/xhtml"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:a="http://www.adobe.com/svg10-extensions" a:timeline="independent"
+     onload="top.load(evt)">
+
+  <defs>
+    <clipPath id="gameareaclip">
+      <rect x="20" y="20" width="600" height="560"/>
+    </clipPath>
+    <pattern id="background_pattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+      <rect width="20" height="20" style="fill:yellow"/>
+      <circle cx="10" cy="10" r="8" style="fill:lightyellow"/>
+    </pattern>
+    <radialGradient id="player_color">
+      <stop offset="0.0" style="stop-color:yellow;stop-opacity:1"/>
+      <stop offset="0.8" style="stop-color:yellow;stop-opacity:1"/>
+      <stop offset="1.0" style="stop-color:orange;stop-opacity:1"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="100%" height="100%" style="fill:url(#background_pattern);stroke:orange;stroke-width:4" />
+
+  <rect x="20" y="20" width="600" height="560" style="fill:black;stroke:red;stroke-width:5" />
+
+  <!-- Add your button here -->
+  <g onclick="top.setZoom()" transform="translate(640, 20)">
+    <rect x="0" y="0" width="140" height="40"
+          style="fill:white;stroke:red;stroke-width:2" />
+    <text x="70" y="28"
+          style="fill:red;font-size:25px;text-anchor:middle">Zoom</text>
+  </g>
+
+  <g style="clip-path:url(#gameareaclip)">
+    <g transform="translate(20,20)">
+      <g id="gamearea" transform="translate(0,0)" width="600" height="560">
+        <rect x="0" y="0" width="600" height="560" style="fill:white" />
+
+        <g id="platforms">
+
+          <!-- Add your platforms here -->
+          
+          <rect x="0" y="480" width="60" height="80" style="fill:orange"/>
+          <rect x="60" y="500" width="60" height="60" style="fill:orange"/>
+          <rect x="120" y="520" width="60" height="40" style="fill:orange"/>
+          <rect x="180" y="520" width="60" height="60" style="fill:orange"/>
+          <rect x="240" y="540" width="60" height="80" style="fill:orange"/>
+          <rect x="240" y="540" width="360" height="80" style="fill:orange"/>
+          <rect x="560" y="520" width="360" height="80" style="fill:orange"/>
+          
+          
+          <rect x="360" y="440" width="180" height="20" style="fill:orange"/>
+          <rect x="400" y="420" width="60" height="60" style="fill:orange"/>
+          <rect x="450" y="400" width="60" height="80" style="fill:orange"/>
+          
+          
+          <rect x="260" y="340" width="180" height="20" style="fill:orange"/>
+          <rect x="300" y="320" width="60" height="60" style="fill:orange"/>
+          <rect x="350" y="300" width="60" height="80" style="fill:orange"/>
+          
+          <rect x="160" y="240" width="180" height="20" style="fill:orange"/>
+          <rect x="100" y="220" width="60" height="40" style="fill:orange"/>
+          <rect x="150" y="200" width="60" height="40" style="fill:orange"/>
+          
+          <rect x="160" y="40" width="180" height="20" style="fill:orange"/>
+          <rect x="100" y="40" width="60" height="40" style="fill:orange"/>
+<!--           <rect x="150" y="40" width="60" height="120" style="fill:orange"/> -->
+          
+          <rect x="60" y="340" width="180" height="20" style="fill:orange"/>
+          <rect x="40" y="320" width="60" height="60" style="fill:orange"/>
+          <rect x="60" y="300" width="60" height="80" style="fill:orange"/>
+          
+          <rect x="0" y="140" width="180" height="20" style="fill:orange"/>
+          <rect x="20" y="120" width="40" height="20" style="fill:orange"/>
+          
+          <rect x="560" y="120" width="40" height="80" style="fill:orange"/>
+          <rect x="540" y="160" width="40" height="80" style="fill:orange"/>
+          <rect x="520" y="180" width="40" height="60" style="fill:orange"/>
+          <rect x="460" y="180" width="80" height="20" style="fill:orange"/>
+
+        </g>
+
+        <g id="player">
+          <circle cx="20" cy="20" r="20" style="fill:url(#player_color);stroke:black;stroke-width:2"/>
+          <ellipse cx="15" cy="15" rx="3" ry="6" style="fill:black"/>
+          <ellipse cx="25" cy="15" rx="3" ry="6" style="fill:black"/>
+          <path d="M10,25 l20,0 q0,8 -10,8 t-10,-8" style="fill:orange;stroke:black;stroke-black:2"/>
+        </g>
+        
+        <g id="monster">
+			<path d="M0,30 q0,-30 20,-30 t20,30 l0,10 l-5,-7 l-5,7 l-5,-7 l-5,7 l-5,-7 l-5,7 l-5,-7 l-5,7 l0,-10" 
+				style="fill:gray;fill-opacity:0.5;stroke:black;stroke-width:2"/>
+			<circle cx="12" cy="20" r="5" style="fill:yellow;stroke:black;stroke-width:2">
+				<animateColor attributeName="fill" values="yellow;red;yellow"
+                  dur="1s" repeatCount="indefinite"/>
+			</circle>
+			<circle cx="28" cy="20" r="5" style="fill:yellow;stroke:black;stroke-width:2">
+				<animateColor attributeName="fill" values="yellow;red;yellow" dur="1s" repeatCount="indefinite"/>
+			</circle>
+		</g>
+        
+      </g>
+    </g>
+  </g>
+</svg>
