@@ -23,6 +23,44 @@ function createMonster(x, y) {
 	monster.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", "#monster");
 }
 
+function shootBullet() {
+
+	// Disable shooting for a short period of time
+	canShoot = false;
+	var timer = setTimeout("canShoot = true", SHOOT_INTERVAL);
+	
+	// Create the bullet by createing a use node
+	var bullet = svgdoc.createElementNS("http://www.w3.org/2000/svg", "use");
+	svgdoc.getElementById("bullets").appendChild(bullet);
+	
+    // Calculate and set the position of the bullet
+	bullet.setAttribute("x", (player.position.x + (PLAYER_SIZE.w / 2)));
+	bullet.setAttribute("y", (player.position.y + (PLAYER_SIZE.h / 2)));
+	
+    // Set the href of the use node to the bullet defined in the defs node
+	bullet.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", "#bullet");
+
+    // Append the bullet to the bullet group
+	
+
+}
+
+function moveBullets() {
+	var bullets = svgdoc.getElementById("bullets");
+    for (var i = 0; i < bullets.childNodes.length; i++) {
+        var node = bullets.childNodes.item(i);
+		var x = node.getAttribute("x");
+        // Update the position of the bullet
+		node.setAttribute("x", ++x);
+
+        // If the bullet is not inside the screen delete it from the group
+        if (x > SCREEN_SIZE.w) {
+	        svgdoc.getElementById("bullets").removeChild(node);
+        }
+
+    }
+}
+
 // The player class used in this program
 function Player() {
     this.node = svgdoc.getElementById("player");
@@ -96,6 +134,7 @@ Player.prototype.collideScreen = function(position) {
 // Below are constants used in the game
 //
 var PLAYER_SIZE = new Size(40, 40);         // The size of the player
+var MONSTER_SIZE = new Size(40, 40)
 var SCREEN_SIZE = new Size(600, 560);       // The size of the game screen
 var PLAYER_INIT_POS  = new Point(0, 0);     // The initial position of the player
 
@@ -187,6 +226,12 @@ function keydown(evt) {
 	        	player.verticalSpeed = JUMP_SPEED;
         	}
         	break;
+        	
+    	case 32: // space bar
+			if (canShoot == true) {
+    			shootBullet();
+    		}
+			break;
         
 
     }
@@ -289,6 +334,8 @@ function updateScreen() {
     
     
     svgdoc.getElementById("gamearea").setAttribute("transform", "translate(" + translate.x + ", " + translate.y + ") scale(" + scale.x + "," + scale.y + ")");
+    
+    moveBullets();
     
 }
 
