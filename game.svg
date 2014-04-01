@@ -36,6 +36,7 @@
 		<circle cx="5" cy="5" r="5" style="fill:red"/>
 		<circle cx="6" cy="3" r="1" style="fill:pink"/>
 	</g>
+	
 
   </defs>
 
@@ -50,6 +51,16 @@
     <text x="70" y="28"
           style="fill:red;font-size:25px;text-anchor:middle">Zoom</text>
   </g>
+  
+	<g transform="translate(640, 120)">
+		<text x="70" y="0"
+			style="fill:orange;font-size:25px;font-weight:bold;text-anchor:middle">
+			Score:
+		</text>
+		<rect x="0" y="10" width="140" height="35" style="fill:white" />
+		<text id="score" x="70" y="36"
+		style="fill:orange;font-size:25px;text-anchor:middle">0</text>
+	</g>
 
   <g style="clip-path:url(#gameareaclip)">
     <g transform="translate(20,20)">

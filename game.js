@@ -196,6 +196,7 @@ var zoom = 1.0;                             // The zoom level of the screen
 
 var canShoot = true;                		// A flag indicating whether the player can shoot a bullet
 
+var score = 0;								// The score of game
 
 //
 // The load function for the SVG document
@@ -371,6 +372,8 @@ function updateScreen() {
 
     moveBullets();
 	collisionDetection();
+	
+	svgdoc.getElementById("score").firstChild.data = score;			// Update score in the SVG
 }
 
 function setZoom() {
