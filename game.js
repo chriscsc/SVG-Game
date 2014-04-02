@@ -47,7 +47,8 @@ function shootBullet() {
 
 function moveBullets() {
 	var bullets = svgdoc.getElementById("bullets");
-    for (var i = 0; i < bullets.childNodes.length; i++) {
+	bulletCount = bullets.childNodes.length;
+    for (var i = 0; i < bulletCount; i++) {
         var node = bullets.childNodes.item(i);
 		var x = parseInt(node.getAttribute("x"));
         // Update the position of the bullet
@@ -71,7 +72,7 @@ function collisionDetection() {
         var monsterPos = new Point(monster.getAttribute("x"), monster.getAttribute("y"));
         if (intersect(monsterPos, MONSTER_SIZE, player.position, PLAYER_SIZE)) {
         	alert("You are killed!");
-	        clearInterval(gameInterval);
+        	gameOver();
         }
     }
 
@@ -87,12 +88,18 @@ function collisionDetection() {
 	        var monsterPos = new Point(monster.getAttribute("x"), monster.getAttribute("y"));
 	        var bulletPos = new Point(bullet.getAttribute("x"), bullet.getAttribute("y"));
 	        if (intersect(monsterPos, MONSTER_SIZE, bulletPos, BULLET_SIZE)) {
+	        	score++;
 	        	bullets.removeChild(bullet);
 	        	monsters.removeChild(monster);
 			}
         }
 
     }
+}
+
+function gameOver() {
+    clearInterval(gameInterval);
+    getHighScoreTable();
 }
 
 // The player class used in this program
@@ -183,6 +190,7 @@ var BULLET_SPEED = 10.0;            // The speed of a bullet
                                     //  = pixels it moves each game loop
 var SHOOT_INTERVAL = 200.0;         // The period when shooting is disabled
 
+var MAX_BULLETS_ON_SCREEN = 3;
 
 //
 // Variables in the game
@@ -195,7 +203,9 @@ var gameInterval = null;                    // The interval
 var zoom = 1.0;                             // The zoom level of the screen
 
 var canShoot = true;                		// A flag indicating whether the player can shoot a bullet
+var bulletCount = 0;
 
+var playerName = "";						// The name of player
 var score = 0;								// The score of game
 
 //
@@ -263,7 +273,7 @@ function keydown(evt) {
         	break;
 
     	case 32: // space bar
-			if (canShoot == true) {
+			if (canShoot == true && bulletCount < MAX_BULLETS_ON_SCREEN) {
     			shootBullet();
     		}
 			break;
@@ -366,6 +376,8 @@ function updateScreen() {
 	    translate.y = SCREEN_SIZE.h - SCREEN_SIZE.h * scale.y;
     }
 
+	bulletCount = svgdoc.getElementById("bullets").childNodes.length;
+	console.log(bulletCount);
 
 
     svgdoc.getElementById("gamearea").setAttribute("transform", "translate(" + translate.x + ", " + translate.y + ") scale(" + scale.x + "," + scale.y + ")");
