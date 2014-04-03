@@ -37,6 +37,7 @@
 		<circle cx="6" cy="3" r="1" style="fill:pink"/>
 	</g>
 	
+	
 
   </defs>
 
@@ -61,6 +62,9 @@
 		<text id="score" x="70" y="36"
 		style="fill:orange;font-size:25px;text-anchor:middle">0</text>
 	</g>
+	
+
+	
 
   <g style="clip-path:url(#gameareaclip)">
     <g transform="translate(20,20)">
@@ -117,11 +121,24 @@
           <ellipse cx="25" cy="15" rx="3" ry="6" style="fill:black"/>
           <path d="M10,25 l20,0 q0,8 -10,8 t-10,-8" style="fill:orange;stroke:black;stroke-black:2"/>
         </g>
-        
 	    <g id="monsters"/>
 		<g id="bullets"/>
-        
+		
+		
+		<g id="highscoretable"  style = " visibility:hidden" transform="translate(40,40)">
+			<rect width="520" height="480"
+			 style="fill:white;stroke:red;stroke-width:2"/>
+			<text x="260" y="40"
+			 style="fill:red;font-size:30px;font-weight:bold;text-anchor:middle">
+			  High Score Table
+			</text>
+			<text id="highscoretext" y="45"
+			 style="font-size: 20px;font-weight:bold"/>
+		</g>  
+		    
       </g>
+      
+        
     </g>
   </g>
 </svg>

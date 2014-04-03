@@ -96,10 +96,26 @@ function collisionDetection() {
 
     }
 }
+function Input(){
+	playerName = prompt("Enter your name ");
+	if(playerName.length == 0)
+		playerName = "Anonymous";
+}
 
 function gameOver() {
     clearInterval(gameInterval);
-    getHighScoreTable();
+    
+	var table = getHighScoreTable();
+	var record = new ScoreRecord(playerName, score);//playerName, score);
+	for(var i = 0 ; i < 10 ;++i){
+		if(table.length == 0 || i == table.length || table[i].score < record.score   ){
+			table.splice(i, 0, record);
+			break;
+		}
+	}
+
+	setHighScoreTable(table);
+	showHighScoreTable(table);
 }
 
 // The player class used in this program
@@ -227,7 +243,12 @@ function load(evt) {
 
 	createMonster(100, 200);
 	createMonster(200, 200);
+	createMonster(0, 200);
+	createMonster(100, 0);
 
+	createMonster(0, 300);
+
+	Input();
     // Start the game interval
     gameInterval = setInterval("gamePlay()", GAME_INTERVAL);
 }
@@ -376,8 +397,9 @@ function updateScreen() {
 	    translate.y = SCREEN_SIZE.h - SCREEN_SIZE.h * scale.y;
     }
 
+	// Update the bullet count
 	bulletCount = svgdoc.getElementById("bullets").childNodes.length;
-	console.log(bulletCount);
+/* 	console.log(bulletCount); */
 
 
     svgdoc.getElementById("gamearea").setAttribute("transform", "translate(" + translate.x + ", " + translate.y + ") scale(" + scale.x + "," + scale.y + ")");
